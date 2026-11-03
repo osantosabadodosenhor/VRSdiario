@@ -25,17 +25,12 @@ jobs:
         with:
           gradle-version: 8.9
 
-      # PASSO ADICIONADO: Garante que o GitHub tem permissão para rodar o Gradle do seu projeto
-      - name: Dar permissão ao Gradle Wrapper
-        run: chmod +x gradlew
-
-      # PASSO CORRIGIDO: Mudança de 'gradle' para './gradlew'
+      # Executa o build usando o Gradle global fornecido pela action acima
       - name: Compilar APK
-        run: ./gradlew assembleDebug
+        run: gradle assembleDebug
 
       - name: Disponibilizar APK
         uses: actions/upload-artifact@v4
         with:
           name: vrsdiario
-          # PASSO OTIMIZADO: O uso do '*' captura o APK mesmo se o nome final variar
           path: app/build/outputs/apk/debug/*.apk
