@@ -3,6 +3,11 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
+
 android {
     namespace = "com.vrsdiario.app"
     compileSdk = 35
