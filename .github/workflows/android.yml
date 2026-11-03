@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   workflow_dispatch:
 
 jobs:
@@ -26,11 +25,17 @@ jobs:
         with:
           gradle-version: 8.9
 
+      # PASSO ADICIONADO: Garante que o GitHub tem permissão para rodar o Gradle do seu projeto
+      - name: Dar permissão ao Gradle Wrapper
+        run: chmod +x gradlew
+
+      # PASSO CORRIGIDO: Mudança de 'gradle' para './gradlew'
       - name: Compilar APK
-        run: gradle assembleDebug
+        run: ./gradlew assembleDebug
 
       - name: Disponibilizar APK
         uses: actions/upload-artifact@v4
         with:
           name: vrsdiario
-          path: app/build/outputs/apk/debug/app-debug.apk
+          # PASSO OTIMIZADO: O uso do '*' captura o APK mesmo se o nome final variar
+          path: app/build/outputs/apk/debug/*.apk
